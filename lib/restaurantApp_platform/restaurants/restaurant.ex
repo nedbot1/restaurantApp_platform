@@ -11,6 +11,7 @@ defmodule RestaurantAppPlatform.Restaurants.Restaurant do
     belongs_to :account, RestaurantAppPlatform.Accounts.Account
     has_many :tables, RestaurantAppPlatform.Tables.Table
     timestamps(type: :utc_datetime)
+    has_many :menus, RestaurantAppPlatform.Menus.Menu
   end
 
   @doc false

@@ -17,6 +17,8 @@ defmodule RestaurantAppPlatformWeb.Router do
     # Route for batch creation of tables
     post "/tables/batch", TableController, :create_batch
 
+    resources "/menus", MenuController, except: [:new, :edit]
+    post "/menus/batch", MenuController, :create_batch
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
