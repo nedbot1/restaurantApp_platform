@@ -23,7 +23,7 @@ defmodule RestaurantAppPlatformWeb.AccountJSON do
       password_hash: account.password_hash,
       salt: account.salt,
       phone_number: account.phone_number,
-      suscribed_at: account.suscribed_at
+      subscribed_at: account.subscribed_at
     }
   end
 end

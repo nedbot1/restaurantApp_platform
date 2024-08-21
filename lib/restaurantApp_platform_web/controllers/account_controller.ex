@@ -40,4 +40,15 @@ defmodule RestaurantAppPlatformWeb.AccountController do
       send_resp(conn, :no_content, "")
     end
   end
+
+def subscribe_to_premium(conn, %{"id" => id}) do
+    account = Accounts.get_account!(id)
+
+    case Accounts.set_premium_subscription(account) do
+      {:ok, _account} ->
+        json(conn, %{message: "Subscription successful!"})
+      # {:error, _changeset} ->
+      #   json(conn, %{message: "Failed to subscribe."}, status: 422)
+    end
+  end
 end

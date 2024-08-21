@@ -10,6 +10,13 @@ defmodule RestaurantAppPlatformWeb.Router do
 
     resources "/accounts", AccountController, except: [:new, :edit]
 
+    resources "/restaurants", RestaurantController, except: [:new, :edit]
+    post "/accounts/:id/subscribe", AccountController, :subscribe_to_premium
+
+    resources "/tables", TableController, except: [:new, :edit]
+    # Route for batch creation of tables
+    post "/tables/batch", TableController, :create_batch
+
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

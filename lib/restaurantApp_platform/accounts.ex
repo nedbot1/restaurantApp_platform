@@ -55,6 +55,8 @@ defmodule RestaurantAppPlatform.Accounts do
     |> Repo.insert()
   end
 
+
+
   @doc """
   Updates a account.
 
@@ -101,4 +103,12 @@ defmodule RestaurantAppPlatform.Accounts do
   def change_account(%Account{} = account, attrs \\ %{}) do
     Account.changeset(account, attrs)
   end
+
+   def set_premium_subscription(%Account{} = account) do
+    account
+    |> Ecto.Changeset.change(%{subscribed_at: NaiveDateTime.utc_now()})
+    |> Repo.update()
+  end
+
+
 end

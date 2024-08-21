@@ -10,16 +10,16 @@ defmodule RestaurantAppPlatform.Accounts.Account do
     field :password_hash, :string
     field :salt, :string
     field :phone_number, :string
-    field :suscribed_at, :utc_datetime
-
+    field :subscribed_at, :utc_datetime, default: nil
+    has_many :restaurants, RestaurantAppPlatform.Restaurants.Restaurant
     timestamps(type: :utc_datetime)
   end
 
   @doc false
   def changeset(account, attrs) do
     account
-    |> cast(attrs, [:owner_name, :email, :password_hash, :salt, :phone_number, :suscribed_at])
-    |> validate_required([:owner_name, :email, :password_hash, :salt, :phone_number, :suscribed_at])
+    |> cast(attrs, [:owner_name, :email, :password_hash, :salt, :phone_number, :subscribed_at])
+    |> validate_required([:owner_name, :email, :password_hash, :salt, :phone_number,])
     |> unique_constraint(:email)
   end
 end

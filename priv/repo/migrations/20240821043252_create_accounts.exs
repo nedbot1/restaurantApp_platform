@@ -9,7 +9,7 @@ defmodule RestaurantAppPlatform.Repo.Migrations.CreateAccounts do
       add :password_hash, :string
       add :salt, :string
       add :phone_number, :string
-      add :suscribed_at, :utc_datetime
+      add :subscribed_at, :utc_datetime
 
       timestamps(type: :utc_datetime)
     end
