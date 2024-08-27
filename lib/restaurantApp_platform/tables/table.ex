@@ -9,6 +9,7 @@ defmodule RestaurantAppPlatform.Tables.Table do
     field :table_number, :string
     field :qr_code, :string
     belongs_to :restaurant, RestaurantAppPlatform.Restaurants.Restaurant
+    has_many :sessions, RestaurantAppPlatform.Sessions.Session
     timestamps(type: :utc_datetime)
   end
 

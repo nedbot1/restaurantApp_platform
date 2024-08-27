@@ -19,6 +19,8 @@ defmodule RestaurantAppPlatformWeb.Router do
 
     resources "/menus", MenuController, except: [:new, :edit]
     post "/menus/batch", MenuController, :create_batch
+
+    resources "/sessions", SessionController, except: [:new, :edit]
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
