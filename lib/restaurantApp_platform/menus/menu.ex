@@ -10,6 +10,7 @@ defmodule RestaurantAppPlatform.Menus.Menu do
     field :price, :decimal
     field :dish_photo_link, :string
     belongs_to :restaurant, RestaurantAppPlatform.Restaurants.Restaurant
+    has_many :order_lists, RestaurantAppPlatform.OrderLists.OrderList
     timestamps(type: :utc_datetime)
   end
 
