@@ -52,7 +52,7 @@ defmodule RestaurantAppPlatform.Sessions do
 
 def create_session(attrs \\ %{}) do
   start_time = DateTime.utc_now()
-  end_time = DateTime.add(start_time, 3600, :second)  # Add 1 minute (60 seconds) to start_time
+  end_time = DateTime.add(start_time, 30, :second)  # Add 1 minute (60 seconds) to start_time
 
   session_attrs = Map.merge(attrs, %{
     "start_time" => start_time,
