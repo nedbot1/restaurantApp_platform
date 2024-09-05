@@ -1,0 +1,22 @@
+app = "restaurantApp_platform"
+
+[build]
+  image = "74cc00b2e28f8b5cad42680cc425b261544eee3dfe70fbdf903015dac9b0fe4a"
+
+[env]
+  MIX_ENV = "prod"
+  PORT = "4000"  # Ensure this matches the internal port your app is using
+
+[[services]]
+  http_checks = [
+    {path = "/health", interval = "10s"}  # Example health check; adjust as needed
+  ]
+  internal_port = 4000  # This should match the port your Phoenix app is listening on
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+  [services.ports]
+    handlers = ["http"]
+    port = 80  # This is the port exposed externally by Fly.io

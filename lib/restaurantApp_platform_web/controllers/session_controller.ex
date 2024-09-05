@@ -20,6 +20,31 @@ defmodule RestaurantAppPlatformWeb.SessionController do
     end
   end
 
+  # def end_session(conn, %{"id" => session_id}) do
+  #   case Sessions.end_session(session_id) do
+  #     {:ok, session} ->
+  #       conn
+  #       |> put_status(:ok)
+  #       |> json(%{message: "Session ended successfully", session: session})
+  #     {:error, reason} ->
+  #       conn
+  #       |> put_status(:bad_request)
+  #       |> json(%{error: reason})
+  #   end
+  # end
+
+  def end_session(conn, %{"id" => session_id}) do
+  case Sessions.end_session(session_id) do
+    {:ok, session} ->
+      conn
+      |> put_status(:ok)
+      |> render("show.json", session: session)
+    {:error, reason} ->
+      conn
+      |> put_status(:bad_request)
+      |> render("error.json", error: reason)
+  end
+end
 
   def show(conn, %{"id" => id}) do
     session = Sessions.get_session!(id)

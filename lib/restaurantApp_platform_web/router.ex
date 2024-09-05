@@ -21,6 +21,7 @@ defmodule RestaurantAppPlatformWeb.Router do
     post "/menus/batch", MenuController, :create_batch
 
     resources "/sessions", SessionController, except: [:new, :edit]
+    post "/sessions/:id/end", SessionController, :end_session
 
     resources "/orders", OrderController, except: [:new, :edit]
 

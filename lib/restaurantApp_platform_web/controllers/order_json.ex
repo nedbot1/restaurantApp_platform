@@ -20,7 +20,8 @@ defmodule RestaurantAppPlatformWeb.OrderJSON do
       id: order.id,
       ordered_at: order.ordered_at,
       payed_at: order.payed_at,
-      total_amount: order.total_amount
+      total_amount: order.total_amount,
+      session_id: order.session_id
     }
   end
 end
