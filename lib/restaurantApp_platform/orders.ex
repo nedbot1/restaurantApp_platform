@@ -17,9 +17,12 @@ defmodule RestaurantAppPlatform.Orders do
       [%Order{}, ...]
 
   """
-  def list_orders do
-    Repo.all(Order)
-  end
+ def list_orders do
+  Order
+  |> Repo.all()
+  |> Repo.preload(:order_lists)
+end
+
 
   @doc """
   Gets a single order.
@@ -35,7 +38,12 @@ defmodule RestaurantAppPlatform.Orders do
       ** (Ecto.NoResultsError)
 
   """
-  def get_order!(id), do: Repo.get!(Order, id)
+  def get_order!(id) do
+  Order
+  |> Repo.get!(id)
+  |> Repo.preload(:order_lists)
+end
+
 
   @doc """
   Creates a order.
@@ -102,69 +110,14 @@ defmodule RestaurantAppPlatform.Orders do
     Order.changeset(order, attrs)
   end
 
-#   def create_order_with_items(attrs \\ %{}) do
-#   Repo.transaction(fn ->
-#     # Create the order first
-#     order_changeset = Order.changeset(%Order{}, attrs.order)
-#     {:ok, order} = Repo.insert(order_changeset)
-
-#     # Loop through the items and create order_list entries
-#     Enum.each(attrs.items, fn item ->
-#       order_list_attrs = %{
-#         order_id: order.id,
-#         menu_item_id: item.menu_item_id,
-#         quantity: item.quantity,
-#         total_price: item.total_price
-#       }
-
-#       order_list_changeset = OrderList.changeset(%OrderList{}, order_list_attrs)
-#       Repo.insert!(order_list_changeset)
-#     end)
-
-#     order
-#   end)
-# end
-
-# def create_order_with_items(%{"order" => order_attrs}) do
-#   Repo.transaction(fn ->
-#     # Extract session_id and total_amount from the order attributes
-#     order_data = %{
-#       session_id: order_attrs["session_id"],
-#       total_amount: order_attrs["total_amount"]
-#     }
-
-#     # Create the order first
-#     order_changeset = Order.changeset(%Order{}, order_data)
-#     {:ok, order} = Repo.insert(order_changeset)
-
-#     # Loop through the items and create order_list entries
-#     Enum.each(order_attrs["order_lists"], fn item ->
-#       order_list_attrs = %{
-#         order_id: order.id,
-#         menu_item_id: item["menu_item_id"],
-#         quantity: item["quantity"],
-#         total_price: item["total_price"]
-#       }
-
-#       order_list_changeset = OrderList.changeset(%OrderList{}, order_list_attrs)
-#       Repo.insert!(order_list_changeset)
-#     end)
-#     order
-#   end)
-# end
-
 def create_order_with_items(%{"order" => order_attrs}) do
   Repo.transaction(fn ->
-    # Ensure you're referring to the correct Session module
     session = Repo.get!(Session, order_attrs["session_id"])
     current_time = DateTime.utc_now()
 
-    # Check if the session has expired
     if DateTime.compare(current_time, session.end_time) == :gt do
-      # Rollback the transaction and return an error message
       Repo.rollback(:session_timeout)
     else
-      # Proceed with order creation as before
       order_data = %{
         session_id: order_attrs["session_id"],
         total_amount: order_attrs["total_amount"]
@@ -173,7 +126,6 @@ def create_order_with_items(%{"order" => order_attrs}) do
       order_changeset = Order.changeset(%Order{}, order_data)
       {:ok, order} = Repo.insert(order_changeset)
 
-      # Create order_list entries
       Enum.each(order_attrs["order_lists"], fn item ->
         order_list_attrs = %{
           order_id: order.id,
@@ -186,10 +138,12 @@ def create_order_with_items(%{"order" => order_attrs}) do
         Repo.insert!(order_list_changeset)
       end)
 
-      order
+      # Ensure the order_lists are preloaded
+      Repo.preload(order, :order_lists)
     end
   end)
 end
+
 
 
 
