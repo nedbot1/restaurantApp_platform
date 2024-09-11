@@ -19,6 +19,7 @@ defmodule RestaurantAppPlatform.Sessions do
   """
   def list_sessions do
     Repo.all(Session)
+    |>Repo.preload(:table)
   end
 
   @doc """
@@ -35,8 +36,10 @@ defmodule RestaurantAppPlatform.Sessions do
       ** (Ecto.NoResultsError)
 
   """
-  def get_session!(id), do: Repo.get!(Session, id)
-
+  def get_session!(id) do
+     Repo.get!(Session, id)
+     |>Repo.preload(:table)
+  end
   @doc """
   Creates a session.
 

@@ -42,6 +42,8 @@ end
   Order
   |> Repo.get!(id)
   |> Repo.preload(:order_lists)
+  # |> Repo.preload(:menus)
+  # |> IO.inspect(label: "my order")
 end
 
 
