@@ -20,8 +20,17 @@ defmodule RestaurantAppPlatform.Orders do
  def list_orders do
   Order
   |> Repo.all()
-  |> Repo.preload(:order_lists)
+  |> Repo.preload([order_lists: :menu, session: :table])
 end
+
+
+def list_unpaid_orders do
+  Order
+  |> where([o], is_nil(o.payed_at))
+  |> Repo.all()
+  |> Repo.preload([order_lists: :menu, session: :table]) # Preload session and table if needed
+end
+
 
 
   @doc """
@@ -41,9 +50,7 @@ end
   def get_order!(id) do
   Order
   |> Repo.get!(id)
-  |> Repo.preload(:order_lists)
-  # |> Repo.preload(:menus)
-  # |> IO.inspect(label: "my order")
+  |> Repo.preload([order_lists: :menu, session: :table])
 end
 
 
@@ -141,7 +148,7 @@ def create_order_with_items(%{"order" => order_attrs}) do
       end)
 
       # Ensure the order_lists are preloaded
-      Repo.preload(order, :order_lists)
+      Repo.preload(order,[order_lists: :menu, session: :table])
     end
   end)
 end

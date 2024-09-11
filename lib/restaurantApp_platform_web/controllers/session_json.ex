@@ -22,7 +22,6 @@ defmodule RestaurantAppPlatformWeb.SessionJSON do
       start_time: session.start_time,
       end_time: session.end_time,
       table_id: session.table_id,
-      table_number: session.table.table_number
     }
   end
 end

@@ -1,6 +1,5 @@
 defmodule RestaurantAppPlatformWeb.OrderController do
   use RestaurantAppPlatformWeb, :controller
-
   alias RestaurantAppPlatform.Orders
   alias RestaurantAppPlatform.Orders.Order
 
@@ -9,6 +8,12 @@ defmodule RestaurantAppPlatformWeb.OrderController do
   def index(conn, _params) do
     orders = Orders.list_orders()
     render(conn, :index, orders: orders)
+  end
+
+
+  def unpaid_orders(conn, _params) do
+    orders = Orders.list_unpaid_orders()
+    render(conn, "index.json", orders: orders)
   end
 
   # def create(conn, %{"order" => order_params}) do

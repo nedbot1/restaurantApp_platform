@@ -10,6 +10,8 @@ defmodule RestaurantAppPlatform.Sessions.Session do
     field :end_time, :utc_datetime
     belongs_to :table, RestaurantAppPlatform.Tables.Table
     timestamps(type: :utc_datetime)
+
+    has_many :orders, RestaurantAppPlatform.Orders.Order
   end
 
   @doc false

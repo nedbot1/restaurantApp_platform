@@ -23,6 +23,7 @@ defmodule RestaurantAppPlatformWeb.Router do
     resources "/sessions", SessionController, except: [:new, :edit]
     post "/sessions/:id/end", SessionController, :end_session
 
+    get "/orders/unpaid", OrderController, :unpaid_orders
     resources "/orders", OrderController, except: [:new, :edit]
 
     resources "/order_lists", OrderListController, except: [:new, :edit]
