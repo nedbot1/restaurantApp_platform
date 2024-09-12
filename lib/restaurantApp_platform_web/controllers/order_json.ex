@@ -1,7 +1,6 @@
 defmodule RestaurantAppPlatformWeb.OrderJSON do
   alias RestaurantAppPlatform.Orders.Order
   alias RestaurantAppPlatform.OrderLists.OrderList
-  alias RestaurantAppPlatform.Tables.Table
 
   @doc """
   Renders a list of orders.

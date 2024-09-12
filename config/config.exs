@@ -13,7 +13,7 @@ config :restaurantApp_platform,
 
 # Configures the endpoint
 config :restaurantApp_platform, RestaurantAppPlatformWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: System.get_env("API_URL")],
   adapter: Bandit.PhoenixAdapter,
   render_errors: [
     formats: [json: RestaurantAppPlatformWeb.ErrorJSON],
@@ -21,6 +21,11 @@ config :restaurantApp_platform, RestaurantAppPlatformWeb.Endpoint,
   ],
   pubsub_server: RestaurantAppPlatform.PubSub,
   live_view: [signing_salt: "14LsngXb"]
+
+# Add this to allow CORS and the ngrok header
+config :cors_plug, origins: [System.get_env("BASE_URL")],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  headers: ["ngrok-skip-browser-warning", "authorization", "content-type", "accept"]
 
 # Configures the mailer
 #

@@ -8,10 +8,12 @@ defmodule RestaurantAppPlatformWeb.Router do
   scope "/api", RestaurantAppPlatformWeb do
     pipe_through :api
 
+    options "/*path", CORSPlug, :options
     resources "/accounts", AccountController, except: [:new, :edit]
 
     resources "/restaurants", RestaurantController, except: [:new, :edit]
     post "/accounts/:id/subscribe", AccountController, :subscribe_to_premium
+
 
     resources "/tables", TableController, except: [:new, :edit]
     # Route for batch creation of tables

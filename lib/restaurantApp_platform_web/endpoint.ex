@@ -35,7 +35,7 @@ defmodule RestaurantAppPlatformWeb.Endpoint do
   plug Phoenix.LiveDashboard.RequestLogger,
     param_key: "request_logger",
     cookie_key: "request_logger"
-  plug CORSPlug
+  plug CORSPlug, origin: [System.get_env("BASE_URL")]
   plug Plug.RequestId
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
 

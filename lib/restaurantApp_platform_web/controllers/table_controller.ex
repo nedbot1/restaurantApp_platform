@@ -8,7 +8,7 @@ defmodule RestaurantAppPlatformWeb.TableController do
 
   def index(conn, _params) do
     tables = Tables.list_tables()
-    render(conn, :index, tables: tables)
+    render(conn, "index.json", tables: tables)
   end
 
   def create(conn, %{"table" => table_params}) do
@@ -40,7 +40,7 @@ end
 
   def show(conn, %{"id" => id}) do
     table = Tables.get_table!(id)
-    render(conn, :show, table: table)
+    render(conn, "show.json", table: table)
   end
 
   def update(conn, %{"id" => id, "table" => table_params}) do
