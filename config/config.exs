@@ -23,9 +23,10 @@ config :restaurantApp_platform, RestaurantAppPlatformWeb.Endpoint,
   live_view: [signing_salt: "14LsngXb"]
 
 # Add this to allow CORS and the ngrok header
-config :cors_plug, origins: [System.get_env("BASE_URL")],
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  headers: ["ngrok-skip-browser-warning", "authorization", "content-type", "accept"]
+# config :cors_plug,
+#   origins: [System.get_env("BASE_URL")],
+#   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+#   headers: ["ngrok-skip-browser-warning", "authorization", "content-type", "accept"]
 
 # Configures the mailer
 #
