@@ -46,7 +46,8 @@ defmodule RestaurantAppPlatform.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       {:cors_plug, "~> 3.0"},
-      {:dotenv, "~> 3.1"}
+      {:dotenv, "~> 3.1"},
+      {:qrcode_ex, "~> 0.1.0"}
     ]
   end
 
