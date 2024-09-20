@@ -62,10 +62,26 @@ defmodule RestaurantAppPlatform.Tables do
     |> Repo.insert()
   end
 
+  def update_table(%Table{} = table, attrs) do
+    table
+    |> Table.changeset(attrs)
+    |> Repo.update()
+  end
+
   # Function to create multiple tables at once
   def create_tables(tables_params) do
     Enum.map(tables_params, fn params ->
-      create_table(params)
+      case create_table(params) do
+        {:ok, table} ->
+          link = "#{System.get_env("BASE_URL")}/page/home?table_id=#{table.id}" |> IO.inspect()
+          qr_base64 = QRCodeEx.encode(link) |> QRCodeEx.png() |> Base.encode64()
+
+          # Update the table with the generated QR code
+          update_table(table, %{qr_code: qr_base64})
+
+        {:error, changeset} ->
+          {:error, changeset}
+      end
     end)
   end
 
@@ -81,11 +97,6 @@ defmodule RestaurantAppPlatform.Tables do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_table(%Table{} = table, attrs) do
-    table
-    |> Table.changeset(attrs)
-    |> Repo.update()
-  end
 
   @doc """
   Deletes a table.
