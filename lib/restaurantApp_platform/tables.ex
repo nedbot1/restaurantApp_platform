@@ -100,15 +100,17 @@ defmodule RestaurantAppPlatform.Tables do
   @doc """
   Updates a table.
 
-  ## Examples
+  # ## Examples
 
-      iex> update_table(table, %{field: new_value})
-      {:ok, %Table{}}
+  #     iex> update_table(table, %{field: new_value})
+  #     {:ok, %Table{}}
 
-      iex> update_table(table, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+  #     iex> update_table(table, %{field: bad_value})
+  #     {:error, %Ecto.Changeset{}}
 
-  """
+  # """
+
+
 
   @doc """
   Deletes a table.
