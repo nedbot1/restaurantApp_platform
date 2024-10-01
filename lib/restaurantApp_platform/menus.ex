@@ -37,6 +37,11 @@ defmodule RestaurantAppPlatform.Menus do
   """
   def get_menu!(id), do: Repo.get!(Menu, id)
 
+ def get_menus_by_restaurant_id(restaurant_id) do
+  query = from(m in Menu, where: m.restaurant_id == ^restaurant_id)
+     Repo.all(query)
+  end
+
   @doc """
   Creates a menu.
 
