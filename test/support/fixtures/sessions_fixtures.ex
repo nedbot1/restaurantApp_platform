@@ -7,16 +7,16 @@ defmodule RestaurantAppPlatform.SessionsFixtures do
   @doc """
   Generate a session.
   """
-  def session_fixture(attrs \\ %{}) do
-    {:ok, session} =
-      attrs
-      |> Enum.into(%{
-        session_token: "some session_token"
-      })
-      |> RestaurantAppPlatform.Sessions.create_session()
+  # def session_fixture(attrs \\ %{}) do
+  #   {:ok, session} =
+  #     attrs
+  #     |> Enum.into(%{
+  #       session_token: "some session_token"
+  #     })
+  #     |> RestaurantAppPlatform.Sessions.create_session()
 
-    session
-  end
+  #   session
+  # end
 
   @doc """
   Generate a session.

@@ -74,6 +74,7 @@ defmodule RestaurantAppPlatform.Tables do
   # Function to create multiple tables at once
   def create_tables(tables_params) do
     Enum.map(tables_params, fn params ->
+      IO.inspect(params)
       case create_table(params) do
         {:ok, table} ->
           # Update the table with the generated QR code
