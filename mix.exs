@@ -50,6 +50,7 @@ defmodule RestaurantAppPlatform.MixProject do
       {:qrcode_ex, "~> 0.1.0"},
       {:bcrypt_elixir, "~> 3.0"},
       {:joken, "~> 2.0"},
+      {:comeonin, "~> 5.3"},
     ]
   end
 

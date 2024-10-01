@@ -20,8 +20,6 @@ defmodule RestaurantAppPlatformWeb.AccountJSON do
       id: account.id,
       owner_name: account.owner_name,
       email: account.email,
-      password_hash: account.password_hash,
-      salt: account.salt,
       phone_number: account.phone_number,
       subscribed_at: account.subscribed_at
     }
