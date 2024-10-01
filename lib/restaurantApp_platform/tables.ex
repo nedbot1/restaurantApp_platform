@@ -68,7 +68,7 @@ defmodule RestaurantAppPlatform.Tables do
     |> Repo.update()
   end
   defp create_qrCode(tableId, restaurantId) do
-    link = "#{System.get_env("BASE_URL")}/app/restaurants/#{restaurantId}/menus?table_id=#{tableId}"|> IO.inspect()
+    link = "#{System.get_env("BASE_URL")}/app/restaurants/#{restaurantId}/menus?table_id=#{tableId}"|>
     QRCodeEx.encode(link) |> QRCodeEx.png() |> Base.encode64()
   end
   # Function to create multiple tables at once
