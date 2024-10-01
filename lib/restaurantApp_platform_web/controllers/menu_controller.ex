@@ -6,8 +6,8 @@ defmodule RestaurantAppPlatformWeb.MenuController do
 
   action_fallback RestaurantAppPlatformWeb.FallbackController
 
-  def index(conn, _params) do
-    menus = Menus.list_menus()
+  def index(conn, %{"restaurant_id" => restaurant_id}) do
+    menus = Menus.get_menus_by_restaurant_id(restaurant_id)
     render(conn, :index, menus: menus)
   end
 
@@ -19,23 +19,6 @@ defmodule RestaurantAppPlatformWeb.MenuController do
       |> render(:show, menu: menu)
     end
   end
-
-  def create_batch(conn, %{"menus" => menus_params}) do
-  created_menus = Menus.create_menus(menus_params)
-
-  case Enum.all?(created_menus, &match?({:ok, _}, &1)) do
-    true ->
-      menus = Enum.map(created_menus, fn {:ok, table} -> table end)
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", ~p"/api/menus")
-      |> render(:index, menus: menus)
-    false ->
-      conn
-      |> put_status(:unprocessable_entity)
-      |> render(:error, message: "Failed to create some menus")
-  end
-end
 
   def show(conn, %{"id" => id}) do
     menu = Menus.get_menu!(id)
@@ -56,5 +39,16 @@ end
     with {:ok, %Menu{}} <- Menus.delete_menu(menu) do
       send_resp(conn, :no_content, "")
     end
+  end
+
+  # Helper function to format menu data
+  defp format_menu(menu) do
+    %{
+      id: menu.id,
+      item_name: menu.item_name,
+      item_description: menu.item_description,
+      price: Decimal.to_string(menu.price),  # Ensure price is a string if sending as JSON
+      dish_photo_link: menu.dish_photo_link
+    }
   end
 end

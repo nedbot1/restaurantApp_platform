@@ -21,6 +21,7 @@ defmodule RestaurantAppPlatformWeb.Router do
     post "/tables/:id/regenerate_qr_code", TableController, :regenerate_qr_code
 
     resources "/menus", MenuController, except: [:new, :edit]
+
     post "/menus/batch", MenuController, :create_batch
 
     resources "/sessions", SessionController, except: [:new, :edit]
@@ -30,7 +31,6 @@ defmodule RestaurantAppPlatformWeb.Router do
     resources "/orders", OrderController, except: [:new, :edit]
 
     resources "/order_lists", OrderListController, except: [:new, :edit]
-
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
