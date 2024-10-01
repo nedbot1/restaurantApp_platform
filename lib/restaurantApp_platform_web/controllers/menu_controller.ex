@@ -1,10 +1,8 @@
 defmodule RestaurantAppPlatformWeb.MenuController do
   use RestaurantAppPlatformWeb, :controller
-  import Ecto.Query
 
   alias RestaurantAppPlatform.Menus
   alias RestaurantAppPlatform.Menus.Menu
-  alias RestaurantAppPlatform.Repo  # Ensure you alias Repo
 
   action_fallback RestaurantAppPlatformWeb.FallbackController
 
