@@ -18,9 +18,9 @@ defmodule RestaurantAppPlatformWeb.AuthController do
 
   def login(conn, %{"email" => email, "password" => password}) do
     case Accounts.authenticate_user(email, password) do
-      {:ok, %{account: account, token: token}} ->
+      {:ok, %{account: %{email: email, id: id, owner_name: owner_name}, token: {:ok, token}}} ->
         conn
-        |> json(%{message: "Login successful", account: account, token: token})
+        |> json(%{message: "Login successful", account: %{id: id, email: email, owner_name: owner_name}, token: elem(token, 1)})
 
       {:error, message} ->
         conn
