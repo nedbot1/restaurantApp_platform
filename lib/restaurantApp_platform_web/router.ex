@@ -18,6 +18,7 @@ defmodule RestaurantAppPlatformWeb.Router do
     resources "/tables", TableController, except: [:new, :edit]
     # Route for batch creation of tables
     post "/tables/batch", TableController, :create_batch
+    post "/tables/:id/regenerate_qr_code", TableController, :regenerate_qr_code
 
     resources "/menus", MenuController, except: [:new, :edit]
     post "/menus/batch", MenuController, :create_batch

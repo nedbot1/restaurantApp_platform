@@ -67,22 +67,34 @@ defmodule RestaurantAppPlatform.Tables do
     |> Table.changeset(attrs)
     |> Repo.update()
   end
-
+  defp create_qrCode(tableId, restaurantId) do
+    link = "#{System.get_env("BASE_URL")}/app/restaurants/#{restaurantId}/menus?table_id=#{tableId}"|> IO.inspect()
+    QRCodeEx.encode(link) |> QRCodeEx.png() |> Base.encode64()
+  end
   # Function to create multiple tables at once
   def create_tables(tables_params) do
     Enum.map(tables_params, fn params ->
       case create_table(params) do
         {:ok, table} ->
-          link = "#{System.get_env("BASE_URL")}/page/home?table_id=#{table.id}" |> IO.inspect()
-          qr_base64 = QRCodeEx.encode(link) |> QRCodeEx.png() |> Base.encode64()
-
           # Update the table with the generated QR code
-          update_table(table, %{qr_code: qr_base64})
-
+          update_table(table, %{qr_code: create_qrCode(table.id, table.restaurant_id)})
         {:error, changeset} ->
           {:error, changeset}
       end
     end)
+  end
+
+  def update_qr_code(table_id) do
+    case Repo.get(Table, table_id) do
+      nil -> {:error, "Table not found"}
+      %Table{} = table ->
+        new_qr_code = create_qrCode(table_id, table.restaurant_id)
+        changeset = Table.changeset(table, %{qr_code: new_qr_code})
+        case Repo.update(changeset) do
+          {:ok, updated_table} -> {:ok, updated_table}
+          {:error, changeset} -> {:error, changeset}
+        end
+    end
   end
 
   @doc """

@@ -38,6 +38,21 @@ defmodule RestaurantAppPlatformWeb.TableController do
   end
 end
 
+  def regenerate_qr_code(conn, %{"id" => table_id}) do
+     case Tables.update_qr_code(table_id) do
+        {:ok, updated_table} ->
+        conn
+        |> put_status(:ok)
+        |> json(%{message: "QR Code updated successfully", table: updated_table})
+
+      {:error, reason} ->
+        # If there's an error, handle it here
+        conn
+        |> put_status(:unprocessable_entity)
+        |> json(%{error: reason})
+     end
+  end
+
   def show(conn, %{"id" => id}) do
     table = Tables.get_table!(id)
     render(conn, "show.json", table: table)
