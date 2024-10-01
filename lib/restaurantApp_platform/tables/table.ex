@@ -4,6 +4,7 @@ defmodule RestaurantAppPlatform.Tables.Table do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
+  @derive {Jason.Encoder, only: [:id, :table_number, :qr_code, :status]}
   schema "tables" do
     field :status, :string, default: "available"
     field :table_number, :string
