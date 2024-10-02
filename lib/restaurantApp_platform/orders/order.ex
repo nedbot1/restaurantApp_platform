@@ -9,6 +9,7 @@ defmodule RestaurantAppPlatform.Orders.Order do
     field :payed_at, :utc_datetime
     field :total_amount, :decimal
     belongs_to :session, RestaurantAppPlatform.Sessions.Session
+    belongs_to :restaurant,RestaurantAppPlatform.Restaurants.Restaurant
     has_many :order_lists, RestaurantAppPlatform.OrderLists.OrderList
     timestamps(type: :utc_datetime)
   end
@@ -18,8 +19,8 @@ defmodule RestaurantAppPlatform.Orders.Order do
     now = DateTime.utc_now() |> DateTime.truncate(:second)
 
     order
-    |> cast(attrs, [:session_id, :payed_at, :total_amount])
+    |> cast(attrs, [:session_id, :payed_at, :total_amount, :restaurant_id])
     |> put_change(:ordered_at, now) # Automatically set ordered_at with truncated microseconds
-    |> validate_required([:session_id, :total_amount])
+    |> validate_required([:session_id, :total_amount, :restaurant_id])
   end
 end
