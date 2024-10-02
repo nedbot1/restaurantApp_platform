@@ -129,7 +129,8 @@ def create_order_with_items(%{"order" => order_attrs}) do
     else
       order_data = %{
         session_id: order_attrs["session_id"],
-        total_amount: order_attrs["total_amount"]
+        total_amount: order_attrs["total_amount"],
+        restaurant_id: order_attrs["restaurant_id"],
       }
 
       order_changeset = Order.changeset(%Order{}, order_data)
