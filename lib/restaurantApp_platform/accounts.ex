@@ -21,6 +21,31 @@ defmodule RestaurantAppPlatform.Accounts do
     Repo.all(Account)
   end
 
+  def register_account(attrs) do
+    %Account{}
+    |> Account.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def authenticate_user(email, password) do
+    account = Repo.get_by(Account, email: email)
+
+    case account do
+      nil ->
+        {:error, "Invalid email or password"}
+
+        account ->
+          if Bcrypt.verify_pass(password, account.password_hash) do
+            token = RestaurantAppPlatform.Auth.generate_token(account)
+            {:ok, %{account: account, token: token}}
+          else
+            {:error, "Invalid email or password"}
+          end
+    end
+  end
+
+
+
   @doc """
   Gets a single account.
 

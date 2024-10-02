@@ -9,6 +9,8 @@ defmodule RestaurantAppPlatformWeb.Router do
   scope "/api", RestaurantAppPlatformWeb do
     pipe_through :api
 
+    post "/register", AuthController, :register
+    post "/login", AuthController, :login
     resources "/accounts", AccountController, except: [:new, :edit]
 
     resources "/restaurants", RestaurantController, except: [:new, :edit]
