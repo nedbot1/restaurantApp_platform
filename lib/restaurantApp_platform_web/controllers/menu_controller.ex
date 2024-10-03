@@ -20,6 +20,8 @@ defmodule RestaurantAppPlatformWeb.MenuController do
     end
   end
 
+
+
   def show(conn, %{"id" => id}) do
     menu = Menus.get_menu!(id)
     render(conn, :show, menu: menu)
@@ -41,14 +43,34 @@ defmodule RestaurantAppPlatformWeb.MenuController do
     end
   end
 
+def create_batch(conn, %{"menus" => menus_params}) do
+  created_menus = Menus.create_menus(menus_params)
+
+  case Enum.all?(created_menus, &match?({:ok, _}, &1)) do
+    true ->
+      menus = Enum.map(created_menus, fn {:ok, menu} -> menu end)
+      conn
+      |> put_status(:created)
+      |> put_resp_header("location", ~p"/api/menus")
+      |> render(:index, menus: menus)
+    false ->
+      conn
+      |> put_status(:unprocessable_entity)
+      |> render(:error, message: "Failed to create some menus")
+  end
+end
+
+
   # Helper function to format menu data
   defp format_menu(menu) do
     %{
       id: menu.id,
       item_name: menu.item_name,
       item_description: menu.item_description,
-      price: Decimal.to_string(menu.price),  # Ensure price is a string if sending as JSON
+      price: Decimal.to_string(menu.price), # Ensure price is a string if sending as JSON
       dish_photo_link: menu.dish_photo_link
     }
   end
+
+
 end

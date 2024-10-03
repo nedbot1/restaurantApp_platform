@@ -20,7 +20,8 @@ defmodule RestaurantAppPlatformWeb.TableJSON do
       id: table.id,
       table_number: table.table_number,
       qr_code: table.qr_code,
-      status: table.status
+      status: table.status,
+      restaurant_id: table.restaurant_id
     }
   end
 end

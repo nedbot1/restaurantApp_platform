@@ -21,6 +21,14 @@ defmodule RestaurantAppPlatform.Tables do
     Repo.all(Table)
   end
 
+
+  def get_tables_by_restaurant_id(restaurant_id) do
+  Table
+  |> where([t], t.restaurant_id == ^restaurant_id)
+  |> Repo.all()
+end
+
+
   @doc """
   Gets a single table.
 

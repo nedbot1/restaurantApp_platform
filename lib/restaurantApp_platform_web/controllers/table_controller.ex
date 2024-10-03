@@ -11,6 +11,11 @@ defmodule RestaurantAppPlatformWeb.TableController do
     render(conn, "index.json", tables: tables)
   end
 
+  def get_tables_by_restaurant_id(conn, %{"restaurant_id" => restaurant_id}) do
+  tables = Tables.get_tables_by_restaurant_id(restaurant_id)
+  render(conn, "index.json", tables: tables)
+end
+
   def create(conn, %{"table" => table_params}) do
     with {:ok, %Table{} = table} <- Tables.create_table(table_params) do
       conn

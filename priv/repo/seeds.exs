@@ -12,18 +12,14 @@ accounts = [
     owner_name: "tobdhen",
     email: "tobdhen@app.com",
     password_hash: "1234",
-    salt: "1234",
     subscribed_at: ~U[2024-09-01T12:00:00Z],
-    salt: "1234",
     phone_number: "17661088"
   },
   %Account{
     owner_name: "sherab",
     email: "sherab@app.com",
     password_hash: "1234",
-    salt: "1234",
     subscribed_at: ~U[2024-09-01T12:00:00Z],
-    salt: "1234",
     phone_number: "77223344"
   }
 ]
