@@ -41,6 +41,8 @@ defmodule RestaurantAppPlatformWeb.Endpoint do
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   headers: ["ngrok-skip-browser-warning", "authorization", "content-type", "accept"]
 
+
+
   plug Plug.RequestId
 
   plug Plug.Telemetry, event_prefix: [:phoenix, :endpoint]
