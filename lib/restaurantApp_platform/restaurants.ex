@@ -21,6 +21,11 @@ defmodule RestaurantAppPlatform.Restaurants do
     Repo.all(Restaurant)
   end
 
+  def get_restaurant_by_account_id(account_id) do
+    Restaurant
+    |>where([r], r.account_id == ^account_id)
+    |>Repo.one()
+  end
   @doc """
   Gets a single restaurant.
 

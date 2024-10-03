@@ -25,6 +25,19 @@ defmodule RestaurantAppPlatformWeb.RestaurantController do
     render(conn, :show, restaurant: restaurant)
   end
 
+  def show_by_account(conn, %{"account_id" => account_id}) do
+    case Restaurants.get_restaurant_by_account_id(account_id)do
+      nil ->
+        conn
+          |> put_status(:not_found)
+          |> json(%{error: "Restaurant not found"})
+
+        restaurant ->
+          conn
+            |>json(restaurant)
+    end
+  end
+
   def update(conn, %{"id" => id, "restaurant" => restaurant_params}) do
     restaurant = Restaurants.get_restaurant!(id)
 

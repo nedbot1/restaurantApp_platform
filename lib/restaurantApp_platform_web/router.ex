@@ -14,6 +14,8 @@ defmodule RestaurantAppPlatformWeb.Router do
     resources "/accounts", AccountController, except: [:new, :edit]
 
     resources "/restaurants", RestaurantController, except: [:new, :edit]
+    get "/restaurants/account/:account_id", RestaurantController, :show_by_account
+
     post "/accounts/:id/subscribe", AccountController, :subscribe_to_premium
 
 
