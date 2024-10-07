@@ -33,6 +33,8 @@ defmodule RestaurantAppPlatformWeb.Router do
 
     get "/orders/unpaid", OrderController, :unpaid_orders
     resources "/orders", OrderController, except: [:new, :edit]
+    get "/orders/restaurant/:restaurant_id", OrderController, :index_by_restaurant
+
 
     resources "/order_lists", OrderListController, except: [:new, :edit]
   end

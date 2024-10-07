@@ -31,6 +31,12 @@ def list_unpaid_orders do
   |> Repo.preload([order_lists: :menu, session: :table]) # Preload session and table if needed
 end
 
+def get_order_by_restaurant_id(restaurant_id) do
+  Order
+  |> where([o], o.restaurant_id == ^restaurant_id)
+  |> Repo.all()
+  |> Repo.preload([order_lists: :menu, session: :table])
+end
 
 
   @doc """

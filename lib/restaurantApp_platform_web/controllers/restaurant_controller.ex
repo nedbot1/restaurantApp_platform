@@ -32,9 +32,9 @@ defmodule RestaurantAppPlatformWeb.RestaurantController do
           |> put_status(:not_found)
           |> json(%{error: "Restaurant not found"})
 
-        restaurant ->
-          conn
-            |>json(restaurant)
+      restaurant ->
+        conn
+          |>json(restaurant)
     end
   end
 

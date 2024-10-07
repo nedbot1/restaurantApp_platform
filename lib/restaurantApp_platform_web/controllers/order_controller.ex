@@ -16,6 +16,11 @@ defmodule RestaurantAppPlatformWeb.OrderController do
     render(conn, "index.json", orders: orders)
   end
 
+  def index_by_restaurant(conn, %{"restaurant_id" => restaurant_id}) do
+    orders = Orders.get_order_by_restaurant_id(restaurant_id)
+    render(conn, "index.json", orders: orders)
+  end
+
   # def create(conn, %{"order" => order_params}) do
   #   with {:ok, %Order{} = order} <- Orders.create_order(order_params) do
   #     conn
@@ -41,6 +46,19 @@ end
     order = Orders.get_order!(id)
     render(conn, :show, order: order)
   end
+
+  # def show_by_restaurant(conn, %{"restaurant_id" => restaurant_id}) do
+  #   case Orders.get_order_by_restaurant_id(restaurant_id)do
+  #     nil ->
+  #       conn
+  #         |> put_status(:not_found)
+  #         |> json(%{error: "Order not found"})
+
+  #     order ->
+  #       conn
+  #         |> json(order)
+  #     end
+  # end
 
   def update(conn, %{"id" => id, "order" => order_params}) do
     order = Orders.get_order!(id)

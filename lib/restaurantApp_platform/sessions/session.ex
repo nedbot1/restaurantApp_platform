@@ -2,6 +2,7 @@ defmodule RestaurantAppPlatform.Sessions.Session do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:id, :session_token, :start_time, :end_time, :table_id, :table]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "sessions" do

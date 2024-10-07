@@ -2,6 +2,7 @@ defmodule RestaurantAppPlatform.Orders.Order do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @derive {Jason.Encoder, only: [:id, :ordered_at, :payed_at, :total_amount, :session_id, :restaurant_id]}
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "orders" do
