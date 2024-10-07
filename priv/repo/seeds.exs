@@ -33,7 +33,7 @@ Enum.each(accounts, fn account ->
   # create restaurants
   restaurant = %Restaurant{
     name: account.owner_name,
-    location: "Cairo",
+    location: faker.city(),
     contact_number: account.phone_number,
     account_id: account.id
   }
