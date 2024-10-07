@@ -38,6 +38,9 @@ defmodule RestaurantAppPlatformWeb.Router do
 
 
     resources "/order_lists", OrderListController, except: [:new, :edit]
+
+     resources "/categories", CategoryController, except: [:new, :edit]
+
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
