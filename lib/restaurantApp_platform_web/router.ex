@@ -14,6 +14,8 @@ defmodule RestaurantAppPlatformWeb.Router do
     resources "/accounts", AccountController, except: [:new, :edit]
 
     resources "/restaurants", RestaurantController, except: [:new, :edit]
+    get "/restaurants/account/:account_id", RestaurantController, :show_by_account
+
     post "/accounts/:id/subscribe", AccountController, :subscribe_to_premium
 
 
@@ -32,6 +34,8 @@ defmodule RestaurantAppPlatformWeb.Router do
 
     get "/orders/unpaid", OrderController, :unpaid_orders
     resources "/orders", OrderController, except: [:new, :edit]
+    get "/orders/restaurant/:restaurant_id", OrderController, :index_by_restaurant
+
 
     resources "/order_lists", OrderListController, except: [:new, :edit]
   end

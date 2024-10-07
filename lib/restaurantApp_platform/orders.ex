@@ -31,6 +31,12 @@ def list_unpaid_orders do
   |> Repo.preload([order_lists: :menu, session: :table]) # Preload session and table if needed
 end
 
+def get_order_by_restaurant_id(restaurant_id) do
+  Order
+  |> where([o], o.restaurant_id == ^restaurant_id)
+  |> Repo.all()
+  |> Repo.preload([order_lists: :menu, session: :table])
+end
 
 
   @doc """
@@ -129,7 +135,8 @@ def create_order_with_items(%{"order" => order_attrs}) do
     else
       order_data = %{
         session_id: order_attrs["session_id"],
-        total_amount: order_attrs["total_amount"]
+        total_amount: order_attrs["total_amount"],
+        restaurant_id: order_attrs["restaurant_id"],
       }
 
       order_changeset = Order.changeset(%Order{}, order_data)

@@ -22,6 +22,7 @@ defmodule RestaurantAppPlatformWeb.OrderJSON do
     ordered_at: order.ordered_at,
     payed_at: order.payed_at,
     total_amount: order.total_amount,
+    restaurant_id: order.restaurant_id,
     table_number: order.session.table.table_number,
     order_lists: Enum.map(order.order_lists, &order_list_data/1),
     session_id: order.session_id
