@@ -2,7 +2,7 @@ import Config
 
 # Configure your database
 config :restaurantApp_platform, RestaurantAppPlatform.Repo,
-  username: "tobdhen",
+  username: "sherab",
   password: "1234",
   hostname: "localhost",
   database: "restaurantapp_platform_dev",
