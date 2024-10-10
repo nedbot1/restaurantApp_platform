@@ -40,7 +40,10 @@ defmodule RestaurantAppPlatform.Menus do
  def get_menus_by_restaurant_id(restaurant_id) do
   query = from(m in Menu, where: m.restaurant_id == ^restaurant_id)
      Repo.all(query)
+     |> Repo.preload(:category)
   end
+
+
 
   @doc """
   Creates a menu.

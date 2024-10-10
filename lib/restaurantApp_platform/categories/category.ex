@@ -6,7 +6,7 @@ defmodule RestaurantAppPlatform.Categories.Category do
   @foreign_key_type :binary_id
   schema "categories" do
     field :name, :string
-
+    has_many :menus, RestaurantAppPlatform.Menus.Menu
     timestamps(type: :utc_datetime)
   end
 

@@ -22,7 +22,12 @@ defmodule RestaurantAppPlatformWeb.MenuJSON do
       item_description: menu.item_description,
       price: menu.price,
       dish_photo_link: menu.dish_photo_link,
-      restaurant_id: menu.restaurant_id
+      restaurant_id: menu.restaurant_id,
+      category_id: menu.category_id,
+      category_name: get_category_name(menu)  # Use a helper function to safely access category name
     }
   end
+
+  defp get_category_name(%Menu{category: nil}), do: "No Category"
+  defp get_category_name(%Menu{category: category}), do: category.name
 end

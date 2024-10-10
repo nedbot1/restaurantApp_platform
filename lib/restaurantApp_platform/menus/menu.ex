@@ -10,6 +10,7 @@ defmodule RestaurantAppPlatform.Menus.Menu do
     field :price, :decimal
     field :dish_photo_link, :string
     belongs_to :restaurant, RestaurantAppPlatform.Restaurants.Restaurant
+    belongs_to :category, RestaurantAppPlatform.Categories.Category
     # has_many :order_lists, RestaurantAppPlatform.OrderLists.OrderList
     timestamps(type: :utc_datetime)
   end
@@ -17,7 +18,7 @@ defmodule RestaurantAppPlatform.Menus.Menu do
   @doc false
   def changeset(menu, attrs) do
     menu
-    |> cast(attrs, [:item_name, :item_description, :price, :dish_photo_link, :restaurant_id])
-    |> validate_required([:item_name, :item_description, :price, :dish_photo_link, :restaurant_id])
+    |> cast(attrs, [:item_name, :item_description, :price, :dish_photo_link, :restaurant_id, :category_id])
+    |> validate_required([:item_name, :item_description, :price, :dish_photo_link, :restaurant_id, :category_id])
   end
 end
