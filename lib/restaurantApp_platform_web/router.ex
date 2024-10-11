@@ -12,21 +12,17 @@ defmodule RestaurantAppPlatformWeb.Router do
     post "/register", AuthController, :register
     post "/login", AuthController, :login
     resources "/accounts", AccountController, except: [:new, :edit]
+    post "/accounts/:id/subscribe", AccountController, :subscribe_to_premium
 
     resources "/restaurants", RestaurantController, except: [:new, :edit]
     get "/restaurants/account/:account_id", RestaurantController, :show_by_account
 
-    post "/accounts/:id/subscribe", AccountController, :subscribe_to_premium
-
-
     resources "/tables", TableController, except: [:new, :edit]
-    # Route for batch creation of tables
     post "/tables/batch", TableController, :create_batch
     post "/tables/:id/regenerate_qr_code", TableController, :regenerate_qr_code
     get "/tables/by_restaurant/:restaurant_id", TableController, :get_tables_by_restaurant_id
 
     resources "/menus", MenuController, except: [:new, :edit]
-
     post "/menus/batch", MenuController, :create_batch
 
     resources "/sessions", SessionController, except: [:new, :edit]
@@ -35,7 +31,6 @@ defmodule RestaurantAppPlatformWeb.Router do
     get "/orders/unpaid", OrderController, :unpaid_orders
     resources "/orders", OrderController, except: [:new, :edit]
     get "/orders/restaurant/:restaurant_id", OrderController, :index_by_restaurant
-
 
     resources "/order_lists", OrderListController, except: [:new, :edit]
 
