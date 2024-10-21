@@ -1,5 +1,19 @@
 defmodule RestaurantAppPlatformWeb.Router do
   use RestaurantAppPlatformWeb, :router
+  use Plug.ErrorHandler
+
+  defp handle_errors(conn, %{reason: %Phoenix.Router.NoRouteError{message: message}}) do
+  conn |> json(%{errors: message}) |> halt()
+   end
+
+  defp handle_errors(conn, %{reason: reason}) do
+  message = case reason do
+    %{message: message} -> message
+    _ -> "An unknown error occurred."
+  end
+
+  conn |> json(%{errors: message}) |> halt()
+end
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -9,8 +23,11 @@ defmodule RestaurantAppPlatformWeb.Router do
   scope "/api", RestaurantAppPlatformWeb do
     pipe_through :api
 
-    post "/register", AuthController, :register
-    post "/login", AuthController, :login
+    # post "/register", AuthController, :register
+    # post "/login", AuthController, :login
+
+    post "/accounts/create", AccountController, :create
+    post "/accounts/sign_in", AccountController, :sign_in
     resources "/accounts", AccountController, except: [:new, :edit]
     post "/accounts/:id/subscribe", AccountController, :subscribe_to_premium
 

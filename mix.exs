@@ -51,6 +51,7 @@ defmodule RestaurantAppPlatform.MixProject do
       {:bcrypt_elixir, "~> 0.12"},
       {:joken, "~> 2.0"},
       {:comeonin, "~> 5.3"},
+      {:guardian, "~> 2.3"}
       {:faker, "~> 0.17"},
     ]
   end

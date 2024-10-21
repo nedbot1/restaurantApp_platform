@@ -8,7 +8,7 @@ defmodule RestaurantAppPlatform.AccountsTest do
 
     import RestaurantAppPlatform.AccountsFixtures
 
-    @invalid_attrs %{owner_name: nil, email: nil, password_hash: nil, salt: nil, phone_number: nil, suscribed_at: nil}
+    @invalid_attrs %{email: nil, hash_password: nil}
 
     test "list_accounts/0 returns all accounts" do
       account = account_fixture()
@@ -21,15 +21,11 @@ defmodule RestaurantAppPlatform.AccountsTest do
     end
 
     test "create_account/1 with valid data creates a account" do
-      valid_attrs = %{owner_name: "some owner_name", email: "some email", password_hash: "some password_hash", salt: "some salt", phone_number: "some phone_number", suscribed_at: ~U[2024-08-20 04:32:00Z]}
+      valid_attrs = %{email: "some email", hash_password: "some hash_password"}
 
       assert {:ok, %Account{} = account} = Accounts.create_account(valid_attrs)
-      assert account.owner_name == "some owner_name"
       assert account.email == "some email"
-      assert account.password_hash == "some password_hash"
-      assert account.salt == "some salt"
-      assert account.phone_number == "some phone_number"
-      assert account.suscribed_at == ~U[2024-08-20 04:32:00Z]
+      assert account.hash_password == "some hash_password"
     end
 
     test "create_account/1 with invalid data returns error changeset" do
@@ -38,15 +34,11 @@ defmodule RestaurantAppPlatform.AccountsTest do
 
     test "update_account/2 with valid data updates the account" do
       account = account_fixture()
-      update_attrs = %{owner_name: "some updated owner_name", email: "some updated email", password_hash: "some updated password_hash", salt: "some updated salt", phone_number: "some updated phone_number", suscribed_at: ~U[2024-08-21 04:32:00Z]}
+      update_attrs = %{email: "some updated email", hash_password: "some updated hash_password"}
 
       assert {:ok, %Account{} = account} = Accounts.update_account(account, update_attrs)
-      assert account.owner_name == "some updated owner_name"
       assert account.email == "some updated email"
-      assert account.password_hash == "some updated password_hash"
-      assert account.salt == "some updated salt"
-      assert account.phone_number == "some updated phone_number"
-      assert account.suscribed_at == ~U[2024-08-21 04:32:00Z]
+      assert account.hash_password == "some updated hash_password"
     end
 
     test "update_account/2 with invalid data returns error changeset" do

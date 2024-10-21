@@ -42,6 +42,11 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+config :restaurantApp_platform, RestaurantAppPlatformWeb.Auth.Guardian,
+ issuer: "restaurantApp_platform",
+ secret_key: System.get_env("GUARDIAN_SECRET") || "vY2rq86okYtX7HCFgd+2AtjJvX3ZLMwojx5g7mvPWu6iyw7J7mQqmJvi0pw8J5iy"
+
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
