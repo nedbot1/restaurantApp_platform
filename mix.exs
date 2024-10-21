@@ -69,3 +69,4 @@ defmodule RestaurantAppPlatform.MixProject do
     ]
   end
 end
+

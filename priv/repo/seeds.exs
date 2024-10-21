@@ -7,12 +7,14 @@ alias RestaurantAppPlatform.Menus.Menu
 alias RestaurantAppPlatform.Tables.Table
 
 # create users
+category = [
+  
+]
 accounts = [
   %Account{
     owner_name: "tobdhen",
     email: "tobdhen@app.com",
     password_hash: Bcrypt.hash_pwd_salt("1234"),
-    salt: "1234",
     subscribed_at: ~U[2024-09-01T12:00:00Z],
     phone_number: "17661088"
   },
@@ -20,7 +22,6 @@ accounts = [
     owner_name: "sherab",
     email: "sherab@app.com",
     password_hash: Bcrypt.hash_pwd_salt("1234"),
-    salt: "1234",
     subscribed_at: ~U[2024-09-01T12:00:00Z],
     phone_number: "77223344"
   }
@@ -59,7 +60,6 @@ Enum.each(accounts, fn account ->
       restaurant_id: restaurant.id
     }
   ]
-
   Enum.each(menus, fn menu ->
     Repo.insert!(menu)
   end)
