@@ -20,6 +20,20 @@ end
     plug CORSPlug
   end
 
+
+  pipeline :auth do
+    plug RestaurantAppPlatformWeb.Auth.Pipeline
+  end
+
+
+  scope "/api", RestaurantAppPlatformWeb do
+    pipe_through [:api, :auth]
+     resources "/restaurants", RestaurantController, except: [:new, :edit]
+      get "/restaurants/account/:account_id", RestaurantController, :show_by_account
+
+  end
+
+
   scope "/api", RestaurantAppPlatformWeb do
     pipe_through :api
 
@@ -31,8 +45,8 @@ end
     resources "/accounts", AccountController, except: [:new, :edit]
     post "/accounts/:id/subscribe", AccountController, :subscribe_to_premium
 
-    resources "/restaurants", RestaurantController, except: [:new, :edit]
-    get "/restaurants/account/:account_id", RestaurantController, :show_by_account
+    # resources "/restaurants", RestaurantController, except: [:new, :edit]
+    # get "/restaurants/account/:account_id", RestaurantController, :show_by_account
 
     resources "/tables", TableController, except: [:new, :edit]
     post "/tables/batch", TableController, :create_batch
