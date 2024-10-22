@@ -48,9 +48,10 @@ defmodule RestaurantAppPlatform.MixProject do
       {:cors_plug, "~> 3.0"},
       {:dotenv, "~> 3.1"},
       {:qrcode_ex, "~> 0.1.0"},
-      {:bcrypt_elixir, "~> 3.0"},
+      {:bcrypt_elixir, "~> 0.12"},
       {:joken, "~> 2.0"},
       {:comeonin, "~> 5.3"},
+      {:faker, "~> 0.17"},
     ]
   end
 
