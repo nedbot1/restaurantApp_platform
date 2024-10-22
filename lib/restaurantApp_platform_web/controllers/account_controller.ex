@@ -1,8 +1,7 @@
 defmodule RestaurantAppPlatformWeb.AccountController do
   use RestaurantAppPlatformWeb, :controller
-
-  alias RestaurantAppPlatform.Accounts
-  alias RestaurantAppPlatform.Accounts.Account
+  alias RestaurantAppPlatformWeb.{Auth.Guardian, Auth.ErrorResponse}
+  alias RestaurantAppPlatform.{Accounts, Accounts.Account, Users, Users.User}
 
   action_fallback RestaurantAppPlatformWeb.FallbackController
 
@@ -12,11 +11,24 @@ defmodule RestaurantAppPlatformWeb.AccountController do
   end
 
   def create(conn, %{"account" => account_params}) do
-    with {:ok, %Account{} = account} <- Accounts.create_account(account_params) do
+    with {:ok, %Account{} = account} <- Accounts.create_account(account_params),
+         {:ok, token, _claims} <- Guardian.encode_and_sign(account),
+         {:ok, %User{} = _users} <- Users.create_user(account, account_params)
+         do
       conn
       |> put_status(:created)
-      |> put_resp_header("location", ~p"/api/accounts/#{account}")
-      |> render(:show, account: account)
+      # |> put_resp_header("location", ~p"/api/accounts/#{account}")
+      |> render("account_token.json", account: account, token: token)
+    end
+  end
+
+  def sign_in(conn, %{"email" => email, "hash_password" => hash_password})do
+    case Guardian.authenticate(email, hash_password)do
+      {:ok, account, token} ->
+        conn
+        |> put_status(:ok)
+        |> render("account_token.json", account: account, token: token)
+        {:error, :unauthorized} -> raise ErrorResponse.Unauthorized, message: "email or password is in correct"
     end
   end
 
@@ -38,17 +50,6 @@ defmodule RestaurantAppPlatformWeb.AccountController do
 
     with {:ok, %Account{}} <- Accounts.delete_account(account) do
       send_resp(conn, :no_content, "")
-    end
-  end
-
-def subscribe_to_premium(conn, %{"id" => id}) do
-    account = Accounts.get_account!(id)
-
-    case Accounts.set_premium_subscription(account) do
-      {:ok, _account} ->
-        json(conn, %{message: "Subscription successful!"})
-      # {:error, _changeset} ->
-      #   json(conn, %{message: "Failed to subscribe."}, status: 422)
     end
   end
 end

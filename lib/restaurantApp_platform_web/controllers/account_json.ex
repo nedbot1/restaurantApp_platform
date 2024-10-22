@@ -5,7 +5,7 @@ defmodule RestaurantAppPlatformWeb.AccountJSON do
   Renders a list of accounts.
   """
   def index(%{accounts: accounts}) do
-    %{data: for(account <- accounts, do: data(account))}
+    %{data: Enum.map(accounts, &data/1)}
   end
 
   @doc """
@@ -18,10 +18,18 @@ defmodule RestaurantAppPlatformWeb.AccountJSON do
   defp data(%Account{} = account) do
     %{
       id: account.id,
-      owner_name: account.owner_name,
+      email: account.email
+    }
+  end
+
+  @doc """
+  Renders account with token.
+  """
+  def render("account_token.json", %{account: account, token: token}) do
+    %{
+      id: account.id,
       email: account.email,
-      phone_number: account.phone_number,
-      subscribed_at: account.subscribed_at
+      token: token
     }
   end
 end

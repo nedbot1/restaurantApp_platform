@@ -1,21 +1,52 @@
 defmodule RestaurantAppPlatformWeb.Router do
   use RestaurantAppPlatformWeb, :router
+  use Plug.ErrorHandler
+
+  defp handle_errors(conn, %{reason: %Phoenix.Router.NoRouteError{message: message}}) do
+  conn |> json(%{errors: message}) |> halt()
+   end
+
+  defp handle_errors(conn, %{reason: reason}) do
+  message = case reason do
+    %{message: message} -> message
+    _ -> "An unknown error occurred."
+  end
+
+  conn |> json(%{errors: message}) |> halt()
+end
 
   pipeline :api do
     plug :accepts, ["json"]
     plug CORSPlug
   end
 
+
+  pipeline :auth do
+    plug RestaurantAppPlatformWeb.Auth.Pipeline
+  end
+
+
+  scope "/api", RestaurantAppPlatformWeb do
+    pipe_through [:api, :auth]
+     resources "/restaurants", RestaurantController, except: [:new, :edit]
+      get "/restaurants/account/:account_id", RestaurantController, :show_by_account
+
+  end
+
+
   scope "/api", RestaurantAppPlatformWeb do
     pipe_through :api
 
-    post "/register", AuthController, :register
-    post "/login", AuthController, :login
+    # post "/register", AuthController, :register
+    # post "/login", AuthController, :login
+
+    post "/accounts/create", AccountController, :create
+    post "/accounts/sign_in", AccountController, :sign_in
     resources "/accounts", AccountController, except: [:new, :edit]
     post "/accounts/:id/subscribe", AccountController, :subscribe_to_premium
 
-    resources "/restaurants", RestaurantController, except: [:new, :edit]
-    get "/restaurants/account/:account_id", RestaurantController, :show_by_account
+    # resources "/restaurants", RestaurantController, except: [:new, :edit]
+    # get "/restaurants/account/:account_id", RestaurantController, :show_by_account
 
     resources "/tables", TableController, except: [:new, :edit]
     post "/tables/batch", TableController, :create_batch

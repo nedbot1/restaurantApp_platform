@@ -6,22 +6,14 @@ defmodule RestaurantAppPlatformWeb.AccountControllerTest do
   alias RestaurantAppPlatform.Accounts.Account
 
   @create_attrs %{
-    owner_name: "some owner_name",
     email: "some email",
-    password_hash: "some password_hash",
-    salt: "some salt",
-    phone_number: "some phone_number",
-    suscribed_at: ~U[2024-08-20 04:32:00Z]
+    hash_password: "some hash_password"
   }
   @update_attrs %{
-    owner_name: "some updated owner_name",
     email: "some updated email",
-    password_hash: "some updated password_hash",
-    salt: "some updated salt",
-    phone_number: "some updated phone_number",
-    suscribed_at: ~U[2024-08-21 04:32:00Z]
+    hash_password: "some updated hash_password"
   }
-  @invalid_attrs %{owner_name: nil, email: nil, password_hash: nil, salt: nil, phone_number: nil, suscribed_at: nil}
+  @invalid_attrs %{email: nil, hash_password: nil}
 
   setup %{conn: conn} do
     {:ok, conn: put_req_header(conn, "accept", "application/json")}
@@ -44,11 +36,7 @@ defmodule RestaurantAppPlatformWeb.AccountControllerTest do
       assert %{
                "id" => ^id,
                "email" => "some email",
-               "owner_name" => "some owner_name",
-               "password_hash" => "some password_hash",
-               "phone_number" => "some phone_number",
-               "salt" => "some salt",
-               "suscribed_at" => "2024-08-20T04:32:00Z"
+               "hash_password" => "some hash_password"
              } = json_response(conn, 200)["data"]
     end
 
@@ -70,11 +58,7 @@ defmodule RestaurantAppPlatformWeb.AccountControllerTest do
       assert %{
                "id" => ^id,
                "email" => "some updated email",
-               "owner_name" => "some updated owner_name",
-               "password_hash" => "some updated password_hash",
-               "phone_number" => "some updated phone_number",
-               "salt" => "some updated salt",
-               "suscribed_at" => "2024-08-21T04:32:00Z"
+               "hash_password" => "some updated hash_password"
              } = json_response(conn, 200)["data"]
     end
 
