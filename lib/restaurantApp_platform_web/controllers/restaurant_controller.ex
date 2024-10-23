@@ -39,6 +39,40 @@ defmodule RestaurantAppPlatformWeb.RestaurantController do
   end
 end
 
+# def show(conn, %{"id" => id}) do
+#   # Get the account from conn.assigns
+#   account = conn.assigns[:account]
+
+#   # Fetch the restaurant, ensuring it belongs to the current account
+#   restaurant = Restaurants.get_restaurant!(id)
+
+#   # Check if the restaurant belongs to the current account
+#   if restaurant.account_id == account.id do
+#     render(conn, :show, restaurant: restaurant)
+#   else
+#     conn
+#     |> put_status(:forbidden)
+#     |> json(%{error: "You are not authorized to access this restaurant"})
+#   end
+# end
+
+
+# def show_by_account(conn, _params) do
+#   # Get the account from conn.assigns
+#   account = conn.assigns[:account]
+
+#   # Use the account's id to fetch restaurants
+#   restaurants = Restaurants.get_restaurant_by_account_id(account.id)
+
+#   if restaurants == [] do
+#     conn
+#     |> put_status(:not_found)
+#     |> json(%{error: "No restaurants found for this account"})
+#   else
+#     conn
+#     |> json(restaurants)
+#   end
+# end
 
   def update(conn, %{"id" => id, "restaurant" => restaurant_params}) do
     restaurant = Restaurants.get_restaurant!(id)

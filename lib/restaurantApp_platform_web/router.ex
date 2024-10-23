@@ -18,11 +18,13 @@ end
   pipeline :api do
     plug :accepts, ["json"]
     plug CORSPlug
+    plug :fetch_session
   end
 
 
   pipeline :auth do
     plug RestaurantAppPlatformWeb.Auth.Pipeline
+    plug RestaurantAppPlatformWeb.Auth.SetAccount
   end
 
 
@@ -30,7 +32,7 @@ end
     pipe_through [:api, :auth]
      resources "/restaurants", RestaurantController, except: [:new, :edit]
       get "/restaurants/account/:account_id", RestaurantController, :show_by_account
-
+      post "/accounts/update", AccountController, :update
   end
 
 
@@ -43,7 +45,7 @@ end
     post "/accounts/create", AccountController, :create
     post "/accounts/sign_in", AccountController, :sign_in
     resources "/accounts", AccountController, except: [:new, :edit]
-    post "/accounts/:id/subscribe", AccountController, :subscribe_to_premium
+
 
     # resources "/restaurants", RestaurantController, except: [:new, :edit]
     # get "/restaurants/account/:account_id", RestaurantController, :show_by_account
