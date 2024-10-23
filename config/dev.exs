@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :restaurantApp_platform, RestaurantAppPlatform.Repo,
-  username: "sherab",
-  password: "1234",
+  username: System.get_env("DB_USER"),
+  password: System.get_env("DB_PASSWORD"),
   hostname: "localhost",
   database: "restaurantApp_dev",
   stacktrace: true,
