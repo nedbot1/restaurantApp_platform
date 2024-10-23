@@ -32,6 +32,7 @@ end
     pipe_through [:api, :auth]
      resources "/restaurants", RestaurantController, except: [:new, :edit]
       get "/restaurants/account/:account_id", RestaurantController, :show_by_account
+      get "/accounts/sign_out", AccountController, :sign_out
       post "/accounts/update", AccountController, :update
   end
 
