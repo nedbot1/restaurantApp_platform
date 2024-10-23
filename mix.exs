@@ -52,7 +52,8 @@ defmodule RestaurantAppPlatform.MixProject do
       {:joken, "~> 2.0"},
       {:comeonin, "~> 5.3"},
       {:guardian, "~> 2.3"},
-      {:faker, "~> 0.17"}
+      {:faker, "~> 0.17"},
+      {:guardian_db, "~> 2.0"}
     ]
   end
 
