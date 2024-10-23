@@ -7,4 +7,8 @@ defmodule RestaurantAppPlatformWeb.Auth.ErrorResponse do
     defexception [message: "you don't have access to this resource", plug_status: 403]
   end
 
+  defmodule NotFound do
+    defexception [message: "resource not found", plug_status: 404]
+  end
+
 end

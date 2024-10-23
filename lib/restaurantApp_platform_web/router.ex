@@ -33,6 +33,7 @@ end
      resources "/restaurants", RestaurantController, except: [:new, :edit]
       get "/restaurants/account/:account_id", RestaurantController, :show_by_account
       get "/accounts/sign_out", AccountController, :sign_out
+      get "/accounts/refresh_session", AccountController, :refresh_session
       post "/accounts/update", AccountController, :update
   end
 
