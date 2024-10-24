@@ -69,7 +69,7 @@ def create_session(attrs \\ %{}) do
 end
 
 
-  defp generate_token do
+  def generate_token do
   :crypto.strong_rand_bytes(16)
   |> Base.encode64()
   |> binary_part(0, 16)
