@@ -5,7 +5,7 @@ config :restaurantApp_platform, RestaurantAppPlatform.Repo,
   username: "tobdhen",
   password: "1234",
   hostname: "localhost",
-  database: "restaurantApp_dev",
+  database: "restaurant_app_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10

@@ -75,10 +75,12 @@ end
     |> Table.changeset(attrs)
     |> Repo.update()
   end
-  defp create_qrCode(tableId, restaurantId) do
+  
+  def create_qrCode(tableId, restaurantId) do
     link = "#{System.get_env("BASE_URL")}/app/restaurants/#{restaurantId}/menus?table_id=#{tableId}"
     QRCodeEx.encode(link) |> QRCodeEx.png() |> Base.encode64()
   end
+
   # Function to create multiple tables at once
   def create_tables(tables_params) do
     Enum.map(tables_params, fn params ->
