@@ -39,7 +39,7 @@ defmodule RestaurantAppPlatformWeb.Endpoint do
   plug CORSPlug,
   origin: System.get_env("BASE_URL") || "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  headers: ["ngrok-skip-browser-warning", "authorization", "content-type", "accept"]
+  headers: ["ngrok-skip-browser-warning", "Authorization", "content-type", "accept"]
 
 
 
