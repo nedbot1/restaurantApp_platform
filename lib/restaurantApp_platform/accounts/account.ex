@@ -28,6 +28,4 @@ defmodule RestaurantAppPlatform.Accounts.Account do
 
   defp put_password_hash(changeset), do:
     changeset
-
-
 end
