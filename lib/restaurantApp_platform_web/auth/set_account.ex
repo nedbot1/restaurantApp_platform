@@ -8,17 +8,14 @@ defmodule RestaurantAppPlatformWeb.Auth.SetAccount do
   end
 
   def call(conn, _options) do
-    IO.inspect(get_req_header(conn, "authorization"), label: "Authorization Header")
-    if conn.assigns[:account]do
+    if conn.assigns[:account] do
       conn
     else
-      account_id = get_session(conn, :account_id)
-      IO.inspect(conn, label: "header")
-      if account_id == nil, do: raise ErrorResponse.Unauthorized
-      account = Accounts.get_account!(account_id)
-      cond do
-        account_id && account -> assign(conn, :account, account)
-        true -> assign(conn, :account, nil)
+      case conn.private.guardian_default_claims["sub"] do
+        nil -> raise ErrorResponse.Unauthorized
+        account_id ->
+          account = conn.private.guardian_default_claims["sub"]
+          assign(conn, :account, account)
       end
     end
   end
